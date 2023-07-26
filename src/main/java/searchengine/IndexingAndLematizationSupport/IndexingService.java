@@ -1,4 +1,4 @@
-package searchengine.services;
+package searchengine.IndexingAndLematizationSupport;
 
 import lombok.Getter;
 import org.jsoup.HttpStatusException;
@@ -24,7 +24,7 @@ public class IndexingService extends RecursiveTask<ArrayList<Page>> {
         Site site;
 
         int errorStatus = 200;
-        static String lastError;
+        public static String lastError;
         String firstUrl;
         public IndexingService(String firstUrl, int currantNum){
             this.firstUrl = firstUrl;

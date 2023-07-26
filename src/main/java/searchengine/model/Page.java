@@ -4,9 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-
+//
 @Entity
-@Table(name = "page")
+@Table(name = "page", indexes = {@Index(name = "path_index", columnList = "path, site_id", unique = true)})
 @Getter
 @Setter
 public class Page {

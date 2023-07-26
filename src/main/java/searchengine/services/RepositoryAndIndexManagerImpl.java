@@ -2,15 +2,18 @@ package searchengine.services;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.apache.lucene.morphology.LuceneMorphology;
-import org.apache.lucene.morphology.russian.RussianLuceneMorphology;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import searchengine.IndexingAndLematizationSupport.IndexingService;
+import searchengine.IndexingAndLematizationSupport.LemmaMaster;
+import searchengine.Repositories.IndexRepository;
+import searchengine.Repositories.LemmaRepository;
+import searchengine.Repositories.PageRepository;
+import searchengine.Repositories.SiteRepository;
 import searchengine.config.SitesList;
 import searchengine.dto.statistics.IndexPageResponse;
 import searchengine.dto.statistics.IndexingResponse;
@@ -20,13 +23,14 @@ import searchengine.model.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 
 @Service
 @RequiredArgsConstructor
 @Getter
+@Transactional
 public class RepositoryAndIndexManagerImpl implements RepositoryAndIndexManager {
 
 
@@ -55,11 +59,32 @@ public class RepositoryAndIndexManagerImpl implements RepositoryAndIndexManager 
 
 
     @Override
-    //TODO: @Async
+    @Async
+    @Transactional
     public void sitesIndexing() {
-        sitesIndexingStart();
+        // ExecutorService executorService = Executors.newSingleThreadExecutor();
+        //executorService.execute(() -> {
+          sitesIndexingStart();
+       // });
+        //tester();
+
     }
 
+
+    public void tester() {
+        for (int j = 0; j < 10000; j++) {
+            for (int i = 0; i < 10000; i++) {
+                System.out.println("10101010010000010ПРОВЕРКА100010101001010");
+                System.out.println("110101010010000010ПРОВЕРКА100010101001010");
+                System.out.println("0110101010010000010ПРОВЕРКА100010101001010");
+                System.out.println("00110101010010000010ПРОВЕРКА100010101001010");
+                System.out.println("100110101010010000010ПРОВЕРКА100010101001010");
+                System.out.println("00110101010010000010ПРОВЕРКА100010101001010");
+                System.out.println("0110101010010000010ПРОВЕРКА100010101001010");
+                System.out.println("110101010010000010ПРОВЕРКА100010101001010");
+            }
+        }
+    }
     public void sitesIndexingStart() {
 
 
@@ -123,9 +148,12 @@ public class RepositoryAndIndexManagerImpl implements RepositoryAndIndexManager 
 
                 }
                 page.setSite(site1);
-                addLemmaAndIndex(page, site1,isPagePereIndexed);
-                //TODO:  synchronized (pageRepository) {
+               // synchronized (this) {
                     pageRepository.save(page);
+                //}
+                addLemmaAndIndex(page, site1,isPagePereIndexed);
+
+
 
 
 

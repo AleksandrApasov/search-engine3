@@ -1,7 +1,9 @@
-package searchengine.model;
+package searchengine.Repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import searchengine.model.Site;
+import searchengine.model.lemma;
 
 import java.util.List;
 

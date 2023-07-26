@@ -1,4 +1,4 @@
-package searchengine.services;
+package searchengine.IndexingAndLematizationSupport;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
+
 @Getter
 public class LemmaMaster {
     public HashMap<String, Integer> lematizating(String text) {

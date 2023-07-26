@@ -4,10 +4,13 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import searchengine.IndexingAndLematizationSupport.LemmaMaster;
+import searchengine.Repositories.IndexRepository;
+import searchengine.Repositories.LemmaRepository;
+import searchengine.Repositories.PageRepository;
+import searchengine.Repositories.SiteRepository;
 import searchengine.dto.statistics.SearchData;
 import searchengine.dto.statistics.SearchResponse;
 import searchengine.model.*;
@@ -195,7 +198,7 @@ public class SearchServiceImpl implements SearchService {
         HashMap<String, Integer> snippetsWithLocalRelevant = new HashMap<>();
         for (String word : querys) {
 
-            String regex = "[А-Яа-я .,]{20}" + word + "[А-Яа-я .,]{20}";
+            String regex = "[А-Яа-я .,]{20} " + word + "[А-Яа-я .,]{20}";
 
             Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
             Matcher matcher = pattern.matcher(localText);
@@ -268,7 +271,7 @@ public class SearchServiceImpl implements SearchService {
 
         Map<K, V> result = new LinkedHashMap<>();
 
-        for (int i = list.size() - 1; i > 0; i--) {
+        for (int i = list.size() - 1; i >= 0; i--) {
             result.put(list.get(i).getKey(), list.get(i).getValue());
         }
 

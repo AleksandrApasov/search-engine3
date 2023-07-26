@@ -1,21 +1,12 @@
 package searchengine.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import searchengine.dto.statistics.*;
-import searchengine.model.Page;
-import searchengine.model.PageRepository;
-import searchengine.model.Site;
-import searchengine.model.SiteRepository;
 import searchengine.services.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api")
@@ -24,17 +15,17 @@ public class ApiController {
 
 
     private final StatisticsService statisticsService;
-    private final IndexingPageService indexingPageService;
+   // private final IndexingPageService indexingPageService;
     private final RepositoryAndIndexManager repositoryAndIndexManager;
     private final SearchService searchService;
 
 
 
 
-    public ApiController(StatisticsService statisticsService, IndexingPageService indexingPageService,
+    public ApiController(StatisticsService statisticsService,
                          RepositoryAndIndexManager repositoryAndIndexManager, SearchService searchService) {
         this.statisticsService = statisticsService;
-        this.indexingPageService = indexingPageService;
+      //  this.indexingPageService = indexingPageService;
         this.repositoryAndIndexManager = repositoryAndIndexManager;
         this.searchService = searchService;
 
